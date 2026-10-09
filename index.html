@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luas & Keliling Persegi Panjang</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle at top, #f8fbff 0%, #e2e8f0 40%, #cbd5e1 100%);
+            color: #0f172a;
+            padding: 24px;
+        }
+
+        .card {
+            width: min(92vw, 470px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 22px;
+            padding: 18px 22px 16px;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+            overflow: visible;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+            font-size: clamp(1.5rem, 2.7vw, 2rem);
+            text-align: center;
+            color: #0f172a;
+            letter-spacing: 0.02em;
+        }
+
+        .input-group { margin-bottom: 14px; }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .input-wrap {
+            display: flex;
+            align-items: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #f8fafc;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        .input-wrap input {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 13px 15px;
+            font-size: 1rem;
+            background: transparent;
+            color: #0f172a;
+        }
+
+        .input-wrap span {
+            padding: 0 14px;
+            color: #475569;
+            font-weight: 700;
+            background: linear-gradient(180deg, #e2e8f0, #dfe7f1);
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .visual-box {
+            margin: 10px 0 12px;
+            padding: 10px 12px 8px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #f8fafc, #eef2ff);
+            border: 1px solid #e2e8f0;
+        }
+
+        .shape-panel {
+            width: 100%;
+            height: 135px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, #ffffff, #f1f5f9);
+            border: 1px solid #dbeafe;
+            border-radius: 16px;
+            margin-bottom: 8px;
+        }
+
+        .math-text {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: 0.02em;
+            min-height: 28px;
+        }
+
+        .formula-note {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 0.82rem;
+            color: #475569;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .rectangle {
+            position: relative;
+            display: block;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 18px;
+            box-shadow: 0 18px 30px rgba(59, 130, 246, 0.25);
+            transition: all 0.25s ease;
+            min-width: 42px;
+            min-height: 42px;
+        }
+
+        .rectangle::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.28), rgba(255,255,255,0));
+        }
+
+        .result {
+            background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 12px 14px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .result-row:last-child { border-bottom: none; }
+        .result-row span {
+            color: #475569;
+            font-weight: 600;
+        }
+        .result-row .formula {
+            color: #1d4ed8;
+            font-weight: 800;
+            font-style: italic;
+        }
+        .result-row .unit {
+            color: #64748b;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+        .result-row strong {
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>Luas & Keliling Persegi Panjang</h1>
+
+        <div class="input-group">
+            <label for="panjangInput">Panjang (p)</label>
+            <div class="input-wrap">
+                <input id="panjangInput" type="number" value="30" min="0" step="1">
+                <span>m</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="lebarInput">Lebar (l)</label>
+            <div class="input-wrap">
+                <input id="lebarInput" type="number" value="10" min="0" step="1">
+                <span>m</span>
+            </div>
+        </div>
+
+        <div class="visual-box">
+            <div class="shape-panel">
+                <div id="rectanglePreview" class="rectangle" aria-label="Visualisasi bentuk persegi panjang"></div>
+            </div>
+            <div id="mathText" class="math-text">30 × 10 = 300</div>
+            <div class="formula-note">L = p × l, K = 2 × (p + l)</div>
+        </div>
+
+        <div class="result">
+            <div class="result-row">
+                <span class="formula">Panjang (p)</span>
+                <strong id="panjangOutput">30</strong>
+                <span class="unit">m</span>
+            </div>
+            <div class="result-row">
+                <span class="formula">Lebar (l)</span>
+                <strong id="lebarOutput">10</strong>
+                <span class="unit">m</span>
+            </div>
+            <div class="result-row">
+                <span class="formula">Luas (L)</span>
+                <strong id="luas">300</strong>
+                <span class="unit">m²</span>
+            </div>
+            <div class="result-row">
+                <span class="formula">Keliling (K)</span>
+                <strong id="keliling">80</strong>
+                <span class="unit">m</span>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
